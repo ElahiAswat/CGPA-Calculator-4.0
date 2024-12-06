@@ -24,7 +24,7 @@
         }
 
         .nav-bar {
-            background-color: #007acc;
+            background-color: #024877;
             color: white;
             padding: 10px;
             display: flex;
@@ -88,10 +88,10 @@
         }
 
         button {
-            background-color: #4CAF50;
-            color: white;
+            background-color:white;
+            color: #4CAF50;
             padding: 10px 20px;
-            border: none;
+            border: 1px solid #4CAF50;
             border-radius: 4px;
             cursor: pointer;
             margin: 5px;
@@ -136,11 +136,11 @@
     background: linear-gradient(to bottom right, white, #ffebee);
 }
 
-        .course-box {
+.course-box {
     background: white;
     padding: 20px;
-    margin: 15px auto;
-    border-radius: 8px;
+    margin: 10px auto;
+    border-radius: 15px;
     box-shadow: 0 2px 5px rgba(0,0,0,0.1);
     align-items: center;
     max-width: 60%;
@@ -213,7 +213,7 @@
             text-align: center;
             padding: 20px;
             margin-top: auto;
-            background-color: #007acc;
+            background-color: #024877;
             color: white;
             position: fixed;
             bottom: 0;
@@ -223,7 +223,7 @@
         }
 
         .tutorial-btn {
-            background-color: #007acc;
+            background-color: #025388;
             color: white;
             padding: 10px 20px;
             border: none;
@@ -232,7 +232,36 @@
             margin-left: 10px;
             vertical-align: middle;
         }
-
+        .image-modal-btn {
+            background-color: #025388;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-left: 10px;
+            vertical-align: middle;
+        }
+        .clcgp-btn {
+            background-color:#025388 ;
+            color: white;
+            padding: 10px 20px;
+            border: 1px solid #025388;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-left: 10px;
+            vertical-align: middle;
+        }        
+        .eclcgp-btn {
+            background-color:#025388 ;
+            color: white;
+            padding: 10px 20px;
+            border: 1px solid #025388;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-left: 10px;
+            vertical-align: middle;
+        }
         .tutorial-modal {
             display: none;
             position: fixed;
@@ -280,7 +309,43 @@
             height: auto;
             margin: 20px 0;
         }
+        .image-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            z-index: 1000;
+    }
 
+    .image-modal .modal-content {
+            background-color: white;
+            margin: 5% auto;
+            padding: 20px;
+            width: 80%;
+            max-width: 800px;
+            border-radius: 8px;
+            position: relative;
+            max-height: 80vh;
+            overflow-y: auto;
+    }
+
+    .image-modal .close-btn {
+        position: absolute;
+        right: 20px;
+        top: 10px;
+        font-size: 24px;
+        cursor: pointer;
+        color: #333;
+    }
+
+    .image-modal img {
+        width: 100%;
+        aspect-ratio: 1/1.414;
+        margin: 20px 0;
+    }
     </style>
 </head>
 <body>
@@ -292,8 +357,14 @@
     </div>
     
     <div class="current-cgpa-section">
-        <h2>Calculate Current CGPA</h2><button class="tutorial-btn" onclick="openTutorial()">Tutorial</button></h2>
-
+        <h2>Calculate Current CGPA</h2><button class="image-modal-btn" onclick="openImage()">NSU Grading Policy</button><button class="tutorial-btn" onclick="openTutorial()">Tutorial ▶</button></h2>
+        <div class="image-modal" id="imageModal">
+            <div class="modal-content">
+                <span class="close-btn" onclick="closeImage()">&times;</span>
+                <h2>NSU Grading Policy</h2>
+                <img src="nsupolicy.png" alt="Open Image" class="tutorial-image">
+            </div>
+        </div>
 <div class="tutorial-modal" id="tutorialModal">
     <div class="modal-content">
         <span class="close-btn" onclick="closeTutorial()">&times;</span>
@@ -323,7 +394,7 @@
             <label for="creditCounted">Total Credits Counted:</label>
             <input type="number" id="creditCounted" step="0.01">
         </div>
-        <button onclick="calculateCurrentCGPA()">Calculate Current CGPA=</button>
+        <button class="clcgp-btn" onclick="calculateCurrentCGPA()">Calculate Current CGPA =</button>
         <div id="currentCGPA" class="cgpa-circle">CGPA: 0.00</div>
     </div>
 
@@ -337,7 +408,7 @@
             <input type="number" id="courseCountInput" class="courseCountInput" min="1" value="1">
             <button onclick="addMultipleCourses()">+ Add Courses</button>
         </div>
-        <button onclick="calculateExpectedCGPA()">Calculate Expected CGPA=</button>
+        <button class="eclcgp-btn" onclick="calculateExpectedCGPA()">Calculate Expected CGPA =</button>
     </div>
 
     <div id="expectedCGPA" class="cgpa-circle">CGPA: 4.00</div>
@@ -345,6 +416,23 @@
     <div class="footer">© 2024 Developed by Aswat</div>
 
     <script>
+        function openImage() {
+        document.getElementById('imageModal').style.display = 'block';
+        document.body.style.overflow = 'hidden'; // Prevent background scrolling
+        }
+
+    // Close the image modal
+        function closeImage() {
+        document.getElementById('imageModal').style.display = 'none';
+        document.body.style.overflow = 'auto'; // Restore background scrolling
+        }
+
+        window.onclick = function(event) {
+        const modal = document.getElementById('imageModal');
+        if (event.target == modal) {
+            closeImage();
+        }
+        }
         function calculateCurrentCGPA() {
             const creditCounted = parseFloat(document.getElementById('creditCounted').value);
             const creditPoints = parseFloat(document.getElementById('creditPoints').value);
@@ -441,9 +529,9 @@
             courseBox.classList.add('course-box');
             courseBox.innerHTML = `
                 <label>Course Title:</label>
-                <input type="text" class="courseTitle" placeholder="Course Name"><br>
+                <input type="text" class="courseTitle" placeholder="Course Name"><br><br>
                 <label>Credits:</label>
-                <input type="number" class="courseCredit" value="3"><br>
+                <input type="number" class="courseCredit" value="3"><br><br>
                 <label>Grade:</label>
                 <select class="gradeSelect">
                     <option value="4.0">A</option>
@@ -459,11 +547,11 @@
                     <option value="I">I</option>
                     <option value="W">W</option>
                     <option value="0.0">F</option>
-                </select><br>
-                <label>Retake Course:</label>
-                <input type="checkbox" class="retakeCheck" onchange="togglePreviousGrade(this)">
+                </select><br><br>
+                </label>Retake Course:</label>
+                <input type="checkbox" class="retakeCheck" onchange="togglePreviousGrade(this)"><br>
                 <div class="previousGrade">
-                    <label>Previous Grade:</label>
+                    </label>Previous Grade:</label>
                     <select class="prevGradeSelect">
                         <option value="0.0">F</option>
                         <option value="I">I</option>
