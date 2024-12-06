@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -101,58 +102,69 @@
         }
 
         .cgpa-circle {
-            width: 150px;
-            height: 150px;
-            border-radius: 50%;
-            margin: 20px auto;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 24px;
-            font-weight: bold;
-            border: 4px solid;
-            background-color: white;
-            transition: all 0.3s ease;
-            display: flex;
-        }
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    margin: 20px auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    font-weight: bold;
+    border: 4px solid;
+    transition: all 0.3s ease;
+}
 
-        .cgpa-green {
-            border-color: #4CAF50;
-            color: #4CAF50;
-            box-shadow: 0 0 15px rgba(76, 175, 80, 0.3);
-        }
+.cgpa-green {
+    border-color: #4CAF50;
+    color: #4CAF50;
+    box-shadow: 0 0 15px rgba(76, 175, 80, 0.3);
+    background: linear-gradient(to bottom right, white, #e8f5e9);
+}
 
-        .cgpa-yellow {
-            border-color: #FFC107;
-            color: #FFC107;
-            box-shadow: 0 0 15px rgba(255, 193, 7, 0.3);
-        }
+.cgpa-yellow {
+    border-color: #FFC107;
+    color: #FFC107;
+    box-shadow: 0 0 15px rgba(255, 193, 7, 0.3);
+    background: linear-gradient(to bottom right, white, #fff8e1);
+}
 
-        .cgpa-red {
-            border-color: #FF5252;
-            color: #FF5252;
-            box-shadow: 0 0 15px rgba(255, 82, 82, 0.3);
-        }
+.cgpa-red {
+    border-color: #FF5252;
+    color: #FF5252;
+    box-shadow: 0 0 15px rgba(255, 82, 82, 0.3);
+    background: linear-gradient(to bottom right, white, #ffebee);
+}
 
         .course-box {
-            background: white;
-            padding: 20px;
-            margin: 15px auto;
-            border-radius: 8px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-            align-items: center;
-            max-width: 60%;
-        }
+    background: white;
+    padding: 20px;
+    margin: 15px auto;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    align-items: center;
+    max-width: 60%;
+    position: relative; /* Add this */
+}
 
-        .remove-btn {
-            background-color: #ff4444;
-            color: white;
-            border: none;
-            padding: 8px 15px;
-            border-radius: 4px;
-            cursor: pointer;
-            transition: background-color 0.3s;
-        }
+.remove-btn {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    background-color: #f7f2f2;
+    color: rgb(253, 5, 5);
+    border: none;
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    padding: 0;
+}
+
 
         .remove-btn:hover {
             background-color: #cc0000;
@@ -183,7 +195,7 @@
 
         .action-container input {
             width: 60px;
-            padding: 5px;
+            padding: 10px;
             margin: 0;
             border: 1px solid #ddd;
             border-radius: 4px;
@@ -311,7 +323,7 @@
             <label for="creditCounted">Total Credits Counted:</label>
             <input type="number" id="creditCounted" step="0.01">
         </div>
-        <button onclick="calculateCurrentCGPA()">Calculate Current CGPA</button>
+        <button onclick="calculateCurrentCGPA()">Calculate Current CGPA=</button>
         <div id="currentCGPA" class="cgpa-circle">CGPA: 0.00</div>
     </div>
 
@@ -325,7 +337,7 @@
             <input type="number" id="courseCountInput" class="courseCountInput" min="1" value="1">
             <button onclick="addMultipleCourses()">+ Add Courses</button>
         </div>
-        <button onclick="calculateExpectedCGPA()">Calculate Expected CGPA</button>
+        <button onclick="calculateExpectedCGPA()">Calculate Expected CGPA=</button>
     </div>
 
     <div id="expectedCGPA" class="cgpa-circle">CGPA: 4.00</div>
@@ -462,12 +474,9 @@
                         <option value="2.3">C+</option>
                         <option value="2.7">B-</option>
                         <option value="3.0">B</option>
-                        <option value="3.3">B+</option>
-                        <option value="3.7">A-</option>
-                        <option value="4.0">A</option>
                     </select><br>
                 </div>
-                <button class="remove-btn" onclick="removeCourse(this)">Remove</button>
+                <button class="remove-btn" onclick="removeCourse(this)">X</button>
             `;
             container.appendChild(courseBox);
         }
