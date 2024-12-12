@@ -1,0 +1,580 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CGPA Calculator</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            padding-top: 80px;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        .nav-bar {
+            background-color: rgb(32,69,132);
+            color: white;
+            padding: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 10;
+            height: 80px;
+        }
+
+        .nav-content {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            width: auto;
+        }
+
+        .nav-content img {
+            height: 90px;
+            min-height: 90px;
+        }
+
+        @media screen and (max-width: 768px) {
+            .nav-content img {
+                height: 35px;
+            }
+            
+            .nav-title {
+                font-size: 20px;
+            }
+        }
+        .current-cgpa-section {
+            margin-top: 100px;
+        }
+        .input-group {
+            margin: 15px 0;
+        }
+
+        .input-group label {
+            display: block;
+            margin-bottom: 5px;
+            color: #333;
+        }
+
+        .input-group input, .input-group select {
+            width: 20%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            align-content:center;
+        }
+
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: 1px solid:  #4CAF50;
+            border-radius: 4px;
+            cursor: pointer;
+            margin: 5px;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        .cgpa-circle {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    margin: 20px auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    font-weight: bold;
+    border: 4px solid;
+    transition: all 0.3s ease;
+}
+
+.cgpa-green {
+    border-color: #4CAF50;
+    color: #4CAF50;
+    box-shadow: 0 0 15px rgba(76, 175, 80, 0.3);
+    background: linear-gradient(to bottom right, white, #e8f5e9);
+}
+
+.cgpa-yellow {
+    border-color: #FFC107;
+    color: #FFC107;
+    box-shadow: 0 0 15px rgba(255, 193, 7, 0.3);
+    background: linear-gradient(to bottom right, white, #fff8e1);
+}
+
+.cgpa-red {
+    border-color: #FF5252;
+    color: #FF5252;
+    box-shadow: 0 0 15px rgba(255, 82, 82, 0.3);
+    background: linear-gradient(to bottom right, white, #ffebee);
+}
+
+.course-box {
+    background: white;
+    padding: 20px;
+    margin: 10px auto;
+    border-radius: 15px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    align-items: center;
+    max-width: 60%;
+    position: relative; /* Add this */
+}
+
+.remove-btn {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    background-color: #f7f2f2;
+    color: rgb(253, 5, 5);
+    border: none;
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    padding: 0;
+}
+
+
+        .remove-btn:hover {
+            background-color: #cc0000;
+        }
+
+        #courseContainer {
+            margin-bottom: 20px;
+        }
+        #expectedCGPA, #currentCGPA {
+            margin-top: 20px;
+            padding: 20px;
+            text-align: center;
+            font-size: 20px;
+            color: #333;
+        }
+
+        #expectedCGPA {
+            padding-top: 20px;
+            margin-bottom: 100px; 
+        }
+        .action-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .action-container input {
+            width: 60px;
+            padding: 10px;
+            margin: 0;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+
+        .previousGrade {
+            display: none;
+        }
+
+        .previousGrade.visible {
+            display: block;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 20px;
+            margin-top: auto;
+            background-color: rgb(32,69,132);
+            color: white;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 50px; 
+        }
+
+        .tutorial-btn {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: 1px solid:  #4CAF50;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-left: 10px;
+            vertical-align: middle;
+        }
+        .image-modal-btn {
+            background-color:#4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: 1px solid:  #4CAF50;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-left: 10px;
+            vertical-align: middle;
+        }
+        .clcgp-btn {
+            background-color:  #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: 1px solid:  #4CAF50;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-left: 10px;
+            vertical-align: middle;
+        }        
+        .eclcgp-btn {
+            background-color:  #4CAF50 ;
+            color: white;
+            padding: 10px 20px;
+            border: 1px solid:  #4CAF50;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-left: 10px;
+            vertical-align: middle;
+        }
+        .tutorial-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            z-index: 1000;
+        }
+
+        .modal-content {
+            background-color: white;
+            margin: 5% auto;
+            padding: 20px;
+            width: 80%;
+            max-width: 800px;
+            border-radius: 8px;
+            position: relative;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+
+        .close-btn {
+            position: absolute;
+            right: 20px;
+            top: 10px;
+            font-size: 24px;
+            cursor: pointer;
+            color: #333;
+        }
+
+        .tutorial-section {
+             margin: 20px 0;
+        }   
+
+        .tutorial-video {
+            width: 100%;
+            aspect-ratio: 16/9;
+            margin: 20px 0;
+        }
+
+        .tutorial-image {
+            max-width: 100%;
+            height: auto;
+            margin: 20px 0;
+        }
+        .image-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            z-index: 1000;
+    }
+
+    .image-modal .modal-content {
+            background-color: white;
+            margin: 5% auto;
+            padding: 20px;
+            width: 80%;
+            max-width: 800px;
+            border-radius: 8px;
+            position: relative;
+            max-height: 80vh;
+            overflow-y: auto;
+    }
+
+    .image-modal .close-btn {
+        position: absolute;
+        right: 20px;
+        top: 10px;
+        font-size: 24px;
+        cursor: pointer;
+        color: #333;
+    }
+
+    .image-modal img {
+        width: 100%;
+        aspect-ratio: 1/1.414;
+        margin: 20px 0;
+    }
+    </style>
+</head>
+<body>
+    <div class="nav-bar">
+        <div class="nav-content">
+            <img src="logo.png" alt="Logo"> 
+        </div>
+    </div>
+    
+    <div class="current-cgpa-section">
+        <h2>Current CGPA</h2><button class="image-modal-btn" onclick="openImage()">Southeast Grading Policy</button><button class="tutorial-btn" onclick="openTutorial()">Tutorial ▶</button></h2>
+        <div class="image-modal" id="imageModal">
+            <div class="modal-content">
+                <span class="close-btn" onclick="closeImage()">&times;</span>
+                <h2>Southeast Grading Policy</h2>
+                <img src="southeastpolicy.png" alt="Open Image" class="tutorial-image">
+            </div>
+        </div>
+<div class="tutorial-modal" id="tutorialModal">
+    <div class="modal-content">
+        <span class="close-btn" onclick="closeTutorial()">&times;</span>
+        <h2>How to Calculate Your CGPA</h2>
+        
+        <div class="tutorial-section">
+            <h3>Step 1: Current CGPA Calculation</h3>
+            <p>Go to UMS->Grades, then copy credits completed and CGPA and paste in input field</p>
+            <img src="image1.jpeg" alt="Tutorial Step 1" class="tutorial-image">
+            
+        </div>
+        
+        <div class="tutorial-section">
+            <h3>Step 2: Expected CGPA Calculation</h3>
+            <p>Add your courses and expected grades to calculate your projected CGPA. If course is retake, select retake and enter previous grade. Name is not mandatory, you can add for better organization.</p>
+            <img src="image2.jpg" alt="Tutorial Step 2" class="tutorial-image">
+        </div>
+    </div>
+</div>
+
+        <div class="input-group">
+            <label for="creditcompl">Credit Completed</label>
+            <input type="number" id="creditcompl" step="0.01">
+        </div>
+        <div class="input-group">
+            <label for="ccgpa">CGPA</label>
+            <input type="number" id="ccgpa" step="0.01">
+        </div>
+        <button class="clcgp-btn" onclick="calculateCurrentCGPA()">Save</button>
+        <div id="currentCGPA" class="cgpa-circle">CGPA: 0.00</div>
+    </div>
+
+    <div id="courseContainer">
+        <h2>Expected CGPA</h2>
+        <div class="add-course-container">
+            <label for="courseCountInput">Number of Courses:</label>
+            <input type="number" id="courseCountInput" class="courseCountInput" min="1" value="1">
+            <button onclick="addMultipleCourses()">+ Add</button>
+        </div>
+    </div>
+
+    <div class="action-container">
+        <button class="eclcgp-btn" onclick="calculateExpectedCGPA()">Calculate Expected CGPA</button>
+    </div>
+
+    <div id="expectedCGPA" class="cgpa-circle">CGPA: 4.00</div>
+
+    <div class="footer">© 2024 Developed by Aswat</div>
+
+    <script>
+        function openImage() {
+        document.getElementById('imageModal').style.display = 'block';
+        document.body.style.overflow = 'hidden'; // Prevent background scrolling
+        }
+
+    // Close the image modal
+        function closeImage() {
+        document.getElementById('imageModal').style.display = 'none';
+        document.body.style.overflow = 'auto'; // Restore background scrolling
+        }
+
+        window.onclick = function(event) {
+        const modal = document.getElementById('imageModal');
+        if (event.target == modal) {
+            closeImage();
+        }
+        }
+        function calculateCurrentCGPA() {
+            
+            const creditcompl = parseFloat(document.getElementById('creditcompl').value);
+            const cgpa = parseFloat(document.getElementById('ccgpa').value);
+            const creditCounted = cgpa*creditcompl;
+            const cgpaDisplay = document.getElementById('currentCGPA');
+
+            cgpaDisplay.textContent = `CGPA: ${cgpa.toFixed(2)}`;
+            cgpaDisplay.className = 'cgpa-circle';
+            if (cgpa > 2.99) cgpaDisplay.classList.add('cgpa-green');
+            else if (cgpa >= 2.5) cgpaDisplay.classList.add('cgpa-yellow');
+            else cgpaDisplay.classList.add('cgpa-red');
+        }
+        function calculateExpectedCGPA() {
+            const currentcreditcompl = parseFloat(document.getElementById('creditcompl').value);
+            const currentcreditpoints =parseFloat(document.getElementById('ccgpa').value)*parseFloat(document.getElementById('creditcompl').value);
+            let totalNewCredits = 0;
+            let totalNewPoints = 0;
+            let adjustedcreditcompl = currentcreditpoints;
+
+            document.querySelectorAll('.course-box').forEach(course => {
+                const credit = parseFloat(course.querySelector('.courseCredit').value);
+                const grade = course.querySelector('.gradeSelect').value;
+                const isRetake = course.querySelector('.retakeCheck').checked;
+
+                
+                if (grade === 'I' || grade === 'W') {
+                    return;
+                }
+
+                const gradePoints = parseFloat(grade);
+
+                if (isRetake) {
+                    const prevGrade = course.querySelector('.prevGradeSelect').value;
+                    
+                    
+                    if (prevGrade === 'I' || prevGrade === 'W') {
+                        totalNewCredits += credit;
+                        totalNewPoints += credit * gradePoints;
+                    } else {
+                        
+                        const prevGradePoints = parseFloat(prevGrade);
+                        adjustedcreditcompl -= (credit * prevGradePoints);
+                        adjustedcreditcompl += (credit * gradePoints);
+                    }
+                } else {
+                    
+                    totalNewCredits += credit;
+                    totalNewPoints += credit * gradePoints;
+                }
+            });
+
+            const finalCGPA = (adjustedcreditcompl + totalNewPoints) / (currentcreditcompl + totalNewCredits) || 0;
+            const cgpaDisplay = document.getElementById('expectedCGPA');
+            cgpaDisplay.textContent = `Expected CGPA: ${finalCGPA.toFixed(2)}`;
+            cgpaDisplay.className = 'cgpa-circle';
+            
+            if (finalCGPA > 2.99) cgpaDisplay.classList.add('cgpa-green');
+            else if (finalCGPA >= 2.5) cgpaDisplay.classList.add('cgpa-yellow');
+            else cgpaDisplay.classList.add('cgpa-red');
+        }
+        function togglePreviousGrade(checkbox) {
+            const previousGradeDiv = checkbox.closest('.course-box').querySelector('.previousGrade');
+            previousGradeDiv.classList.toggle('visible', checkbox.checked);
+        }
+
+        function removeCourse(button) {
+            button.closest('.course-box').remove();
+        }
+
+        function addMultipleCourses() {
+            const numCourses = document.getElementById('courseCountInput').value;
+            for (let i = 0; i < numCourses; i++) {
+                addCourse();
+            }
+        }
+        window.onload = function() {
+    addCourse();  
+    
+    
+    const currentCGPA = document.getElementById('currentCGPA');
+    const expectedCGPA = document.getElementById('expectedCGPA');
+    
+    currentCGPA.textContent = 'CGPA: 0.00';
+    currentCGPA.className = 'cgpa-circle cgpa-red';
+    
+    expectedCGPA.textContent = 'CGPA: 4.00';
+    expectedCGPA.className = 'cgpa-circle cgpa-green';
+}
+
+        function addCourse() {
+            const container = document.getElementById('courseContainer');
+            const courseBox = document.createElement('div');
+            courseBox.classList.add('course-box');
+            courseBox.innerHTML = `
+                <label>Course Title:</label>
+                <input type="text" class="courseTitle" placeholder="Course Name"><br><br>
+                <label>Credits:</label>
+                <input type="number" class="courseCredit" value="3"><br><br>
+                <label>Grade:</label>
+                <select class="gradeSelect">
+                    <option value="4.0">A+</option>
+                    <option value="3.75">A</option>
+                    <option value="3.5">A-</option>
+                    <option value="3.25">B+</option>
+                    <option value="3.00">B</option>
+                    <option value="2.75">B-</option>
+                    <option value="2.50">C+</option>
+                    <option value="2.25">C</option>
+                    <option value="2.0">D</option>
+                    <option value="I">I</option>
+                    <option value="W">W</option>
+                    <option value="0.0">F</option>
+                </select><br><br>
+                </label>Retake Course:</label>
+                <input type="checkbox" class="retakeCheck" onchange="togglePreviousGrade(this)"><br>
+                <div class="previousGrade">
+                    </label>Previous Grade:</label>
+                    <select class="prevGradeSelect">
+                    <option value="2.0">D</option>
+                    <option value="2.25">C</option>
+                    <option value="2.50">C+</option>
+                    <option value="2.75">B-</option>
+                    <option value="3.00">B</option>
+                    <option value="3.25">B+</option>
+                    <option value="3.5">A-</option>
+                    <option value="3.75">A</option>
+                    </select><br>
+                </div>
+                <button class="remove-btn" onclick="removeCourse(this)">X</button>
+            `;
+            container.appendChild(courseBox);
+        }
+        function openTutorial() {
+    document.getElementById('tutorialModal').style.display = 'block';
+    document.body.style.overflow = 'hidden';
+}
+
+function closeTutorial() {
+    document.getElementById('tutorialModal').style.display = 'none';
+    document.body.style.overflow = 'auto';
+}
+
+window.onclick = function(event) {
+    const modal = document.getElementById('tutorialModal');
+    if (event.target == modal) {
+        closeTutorial();
+    }
+}
+    </script>
+</body>
+</html>
+
