@@ -23,49 +23,41 @@
             min-height: 100vh;
         }
 
-        .nav-bar {
-            background-color: #024877;
-            color: white;
-            padding: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            z-index: 10;
-            height: 80px;
-        }
+.nav-bar {
+    background-color: #024877;
+    color: white;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 10;
+    height: 80px;
+    overflow: hidden;
+}
 
-        .nav-content {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-            width: auto;
-        }
+.nav-content {
+    display: flex;
+    align-items: center;
+    width: fit-content;
+}
 
-        .nav-content img {
-            height: 50px;
-        }
+.nav-content img {
+    height: 93px;
+    display: block;
+}
 
-        .nav-title {
-            color: white;
-            font-size: 28px;
-            font-weight: bold;
-            text-align: center;
-        }
+.nav-title {
+    color: white;
+    font-size: 32px;
+    font-weight: bold;
+    margin-left: -10px;
+}
 
-        @media screen and (max-width: 768px) {
-            .nav-content img {
-                height: 35px;
-            }
-            
-            .nav-title {
-                font-size: 20px;
-            }
-        }
+
         .current-cgpa-section {
             margin-top: 100px;
         }
@@ -87,21 +79,82 @@
             align-content:center;
         }
 
-        button {
+.addbutton {
             background-color:white;
             color: #4CAF50;
-            padding: 10px 20px;
             border: 1px solid #4CAF50;
             border-radius: 4px;
             cursor: pointer;
             margin: 5px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+            width: 114px;
+            height:25px; 
+            vertical-align: text-top;
+}
+.courseCountInput {
+            background-color:white;
+            color: black;
+            border: 1px solid white;
+            border-radius: 4px;
+            cursor: pointer;
+            margin: 5px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+            font-size: small;
+            width: 50px;
+            height:25px;
+            vertical-align: text-top;
+            text-align: right;
         }
 
-        button:hover {
-            background-color: #45a049;
-        }
+.addbutton:hover {
+    background-color: #4CAF50;
+    color: white;
+}
 
-        .cgpa-circle {
+@media screen and (max-width: 768px) {
+    .nav-bar {
+        padding: 5px;
+        height: auto;
+        min-height: 60px;
+        max-height: 85px;
+    }
+
+    .nav-content {
+        flex-direction: row;
+        gap: 5px;
+        padding: 5px;
+    }
+
+    .nav-content img {
+        height: 70px;
+    }
+
+    .nav-title {
+        font-size: 22px;
+    }
+
+
+    .footer {
+        padding: 10px;
+        height: auto;
+        min-height: 40px;
+    }
+
+    #courseContainer {
+        width: 100%;
+    }
+    
+    .course-box {
+        width: 90%;
+        max-width: none;
+    }
+    .input-group input, 
+    .input-group select {
+        width: 60%;
+    }
+}
+
+.cgpa-circle {
     width: 150px;
     height: 150px;
     border-radius: 50%;
@@ -143,8 +196,9 @@
     border-radius: 15px;
     box-shadow: 0 2px 5px rgba(0,0,0,0.1);
     align-items: center;
-    max-width: 60%;
-    position: relative; /* Add this */
+    width: 60%;
+    max-width: 800px;
+    position: relative; 
 }
 
 .remove-btn {
@@ -164,16 +218,28 @@
     font-size: 14px;
     padding: 0;
 }
-
-
-        .remove-btn:hover {
+.remove-btn:hover {
             background-color: #cc0000;
-        }
+            color:white;
+}
 
-        #courseContainer {
-            margin-bottom: 20px;
-        }
-        #expectedCGPA, #currentCGPA {
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    text-align: center;
+    max-width: 100%;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+#courseContainer {
+    width: 90vw;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0;
+}      
+#expectedCGPA, #currentCGPA {
             margin-top: 20px;
             padding: 20px;
             text-align: center;
@@ -231,6 +297,10 @@
             cursor: pointer;
             margin-left: 10px;
             vertical-align: middle;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+        }
+        .tutorial-btn:hover {
+            background-color: #024877;
         }
         .image-modal-btn {
             background-color: #025388;
@@ -241,17 +311,54 @@
             cursor: pointer;
             margin-left: 10px;
             vertical-align: middle;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
         }
-        .clcgp-btn {
+        .image-modal-btn:hover {
+            background-color: #024877;
+        }
+        .tutorial-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            z-index: 1;
+        }
+        .tutorial-modal:hover {
+         background-color: rgba(0, 0, 0, 0.7);
+        }
+        .tutorial-modal-content img {
+            max-width: 100%;
+            height: auto;
+        }
+        .tutorial-modal-content p {
+            margin-top: 10px;
+        }
+        .tutorial-modal-close {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 24px;
+            cursor: pointer;
+        }
+.clcgp-btn {
             background-color:#025388 ;
             color: white;
             padding: 10px 20px;
             border: 1px solid #025388;
             border-radius: 4px;
             cursor: pointer;
-            margin-left: 10px;
+            margin-left: 5px;
             vertical-align: middle;
-        }        
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+            width: 180px;
+        }  
+
+.clcgp-btn:hover {
+    background-color: #0277bd;
+}      
         .eclcgp-btn {
             background-color:#025388 ;
             color: white;
@@ -261,6 +368,20 @@
             cursor: pointer;
             margin-left: 10px;
             vertical-align: middle;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+        }
+        .eclcgp-btn:hover {
+            background-color: #0277bd;
+        }
+        .image-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            z-index: 1000;
         }
         .tutorial-modal {
             display: none;
@@ -346,6 +467,105 @@
         aspect-ratio: 1/1.5;
         margin: 20px 0;
     }
+input {
+  border: 2px solid white;
+  border-radius: 4px;
+  padding: 8px;
+  background-color: transparent;
+  color: black;
+  font-size: 16px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+}
+input:focus {
+  outline: none;
+  border: 2px solid lightblue;
+  box-shadow: 0 4px 12px rgba(0, 123, 255, 0.5);
+}
+
+.add-course-btn {
+    background-color: #ffb300;
+    color: white;
+    padding: 10px 20px;
+    border: 1px solid #ffb300;
+    border-radius: 4px;
+    cursor: pointer;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    margin: 5px;
+}
+
+.add-course-btn:hover {
+    background-color: #ffa000;
+    color: white;
+}
+
+.tutorial-btn {
+    background-color: #025388;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-left: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+}
+
+.tutorial-btn:hover {
+    background-color: #0277bd;
+}
+
+.grading-button {
+    background-color: #025388;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    margin-left: 10px;
+}
+
+.grading-button:hover{
+    background-color: #0277bd;
+}
+.courseTitle {
+  border: 2px solid white;
+  border-radius: 4px;
+  padding: 8px;
+  background-color: transparent;
+  color: black;
+  font-size: 16px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+  width: 125px;
+  height: 35px;
+}
+.courseCredit {
+  border: 2px solid white;
+  border-radius: 4px;
+  padding: 8px;
+  background-color: transparent;
+  color: black;
+  text-align: left;
+  font-size: 16px;
+  width: 55px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+  height: 25px;
+}
+.gradeSelect {
+  border: 2px solid white;
+  border-radius: 4px;
+  background-color: transparent;
+  color: black;
+  text-align: left;
+  font-size: 14px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+  height: 25px;
+}
+.add-course-container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+}
     </style>
 </head>
 <body>
@@ -357,7 +577,7 @@
     </div>
     
     <div class="current-cgpa-section">
-        <h2>Calculate Current CGPA</h2><button class="image-modal-btn" onclick="openImage()">NSU Grading Policy</button><button class="tutorial-btn" onclick="openTutorial()">Tutorial ▶</button></h2>
+        <h2>Calculate Current CGPA</h2><button class="grading-button" onclick="openImage()">NSU Grading Policy</button><button class="tutorial-btn" onclick="openTutorial()">Tutorial ▶</button></h2>
         <div class="image-modal" id="imageModal">
             <div class="modal-content">
                 <span class="close-btn" onclick="closeImage()">&times;</span>
@@ -395,21 +615,20 @@
             <label for="creditCounted">Total Credits Counted:</label>
             <input type="number" id="creditCounted" step="0.01">
         </div>
-        <button class="clcgp-btn" onclick="calculateCurrentCGPA()">Calculate Current CGPA =</button>
+        <button class="clcgp-btn" onclick="calculateCurrentCGPA()">Calculate Current CGPA</button>
         <div id="currentCGPA" class="cgpa-circle">CGPA: 0.00</div>
     </div>
 
     <div id="courseContainer">
         <h2>Expected CGPA</h2>
+        <div class="add-course-container">
+            <label>No. of Courses:</label>
+            <input type="number" id="courseCountInput" class="courseCountInput" min="1" value="1"><button class="addbutton" onclick="addMultipleCourses()">+ Add Courses</button>
+        </div>
     </div>
 
     <div class="action-container">
-        <div class="add-course-container">
-            <label for="courseCountInput">Number of Courses:</label>
-            <input type="number" id="courseCountInput" class="courseCountInput" min="1" value="1">
-            <button onclick="addMultipleCourses()">+ Add Courses</button>
-        </div>
-        <button class="eclcgp-btn" onclick="calculateExpectedCGPA()">Calculate Expected CGPA =</button>
+        <button class="eclcgp-btn" onclick="calculateExpectedCGPA()">Calculate Expected CGPA</button>
     </div>
 
     <div id="expectedCGPA" class="cgpa-circle">CGPA: 4.00</div>
@@ -550,7 +769,7 @@
                     <option value="0.0">F</option>
                 </select><br><br>
                 </label>Retake Course:</label>
-                <input type="checkbox" class="retakeCheck" onchange="togglePreviousGrade(this)"><br>
+                <input type="checkbox" class="retakeCheck" onchange="togglePreviousGrade(this)"><br><br>
                 <div class="previousGrade">
                     </label>Previous Grade:</label>
                     <select class="prevGradeSelect">
