@@ -72,30 +72,117 @@
             margin-bottom: 5px;
             color: #333;
         }
-
         .input-group input, .input-group select {
             width: 20%;
-            padding: 8px;
-            border: 1px solid #ddd;
+        }
+
+        inputcg {
+            border: 2px solid white;
             border-radius: 4px;
-            align-content:center;
+            padding: 8px;
+            background-color: white;
+            color: black;
+            font-size: 16px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+            text-align: center;
+        }
+        inputcg:focus {
+            outline: none;
+            border: 2px solid lightblue;
+            box-shadow: 0 4px 12px rgba(0, 123, 255, 0.5);
+        }
+
+#creditcompl, #ccgpa {
+  border: 2px solid white;
+  border-radius: 4px;
+  padding: 8px;
+  background-color: white;
+  color: black;
+  text-align: center;
+  font-size: 16px;
+  width: 125px;
+  height: 35px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+}
+#creditcompl:focus, #ccgpa:focus {
+  outline: none;
+  border: 2px solid lightblue;
+  box-shadow: 0 4px 12px rgba(0, 123, 255, 0.5);
+  transition: all 0.3s ease;
+}
+
+        input {
+            border: 2px solid white;
+            border-radius: 4px;
+            padding: 8px;
+            background-color: white;
+            color: black;
+            font-size: 16px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+        }
+
+        input:focus {
+            outline: none;
+            border: 2px solid lightblue;
+            box-shadow: 0 4px 12px rgba(0, 123, 255, 0.5);
+        }
+
+        .courseTitle {
+            border: 2px solid white;
+            border-radius: 4px;
+            padding: 8px;
+            background-color: transparent;
+            color: black;
+            font-size: 16px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+            width: 125px;
+            height: 35px;
+        }
+
+        .courseCredit {
+            border: 2px solid white;
+            border-radius: 4px;
+            padding: 8px;
+            background-color: transparent;
+            color: black;
+            text-align: left;
+            font-size: 16px;
+            width: 55px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+            height: 25px;
+        }
+
+        .gradeSelect {
+            border: 2px solid white;
+            border-radius: 4px;
+            background-color: white;
+            color: black;
+            text-align: left;
+            font-size: 14px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+            height: 25px;
         }
 
         button {
-            background-color: #4CAF50;
-            color: white;
-            padding: 10px 20px;
-            border: 1px solid:  #4CAF50;
-            border-radius: 4px;
-            cursor: pointer;
-            margin: 5px;
-        }
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    border-style: solid;
+    border-width: 2px;
+    border-left-color: white;
+    border-top-color: white;
+    border-right-color: rgba(0, 0, 0, 0.2);
+    border-bottom-color: rgba(0, 0, 0, 0.2);
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+}
 
-        button:hover {
-            background-color: #45a049;
-        }
+button:hover {
+    box-shadow: 3px 3px 8px rgba(0, 0, 0, 0.3);
+}
 
-        .cgpa-circle {
+ .cgpa-circle {
     width: 150px;
     height: 150px;
     border-radius: 50%;
@@ -162,6 +249,7 @@
 
         .remove-btn:hover {
             background-color: #cc0000;
+            color: white;
         }
 
         #courseContainer {
@@ -340,6 +428,28 @@
         aspect-ratio: 1/1.414;
         margin: 20px 0;
     }
+
+    .courseCountInput {
+            background-color:white;
+            color: black;
+            border: 1px solid white;
+            border-radius: 4px;
+            cursor: pointer;
+            margin: 5px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+            font-size: small;
+            width: 50px;
+            height:35px;
+            vertical-align: text-top;
+            text-align: center;
+        }
+.add-course-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+}
+
     </style>
 </head>
 <body>
@@ -376,7 +486,7 @@
             <img src="image2.jpg" alt="Tutorial Step 2" class="tutorial-image">
         </div>
     </div>
-</div>
+</div><br><br>
 
         <div class="input-group">
             <label for="creditcompl">Credit Completed</label>
@@ -393,12 +503,10 @@
     <div id="courseContainer">
         <h2>Expected CGPA</h2>
         <div class="add-course-container">
-            <label for="courseCountInput">Number of Courses:</label>
-            <input type="number" id="courseCountInput" class="courseCountInput" min="1" value="1">
-            <button onclick="addMultipleCourses()">+ Add</button>
+            <label>No. of Courses:</label>
+            <input type="number" id="courseCountInput" class="courseCountInput" min="1" value="1"><button class="addbutton" onclick="addMultipleCourses()">+ Add Courses</button>
         </div>
     </div>
-
     <div class="action-container">
         <button class="eclcgp-btn" onclick="calculateExpectedCGPA()">Calculate Expected CGPA</button>
     </div>
@@ -540,7 +648,7 @@
                     <option value="0.0">F</option>
                 </select><br><br>
                 </label>Retake Course:</label>
-                <input type="checkbox" class="retakeCheck" onchange="togglePreviousGrade(this)"><br>
+                <input type="checkbox" class="retakeCheck" onchange="togglePreviousGrade(this)"><br><br>
                 <div class="previousGrade">
                     </label>Previous Grade:</label>
                     <select class="prevGradeSelect">
