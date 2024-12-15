@@ -687,12 +687,8 @@ input:focus {
             
             
             if (cgpa > 4) {
-                const messageDiv = document.createElement('div');
-                messageDiv.textContent = "oi mama na pls 😂,recheck your calculation";
-                messageDiv.style.marginTop = '10px';
-                messageDiv.style.color = '#FF5252';
-                cgpaDisplay.parentNode.insertBefore(messageDiv, cgpaDisplay.nextSibling);
-    }
+                alert("oi mama na pls 😂, calculation recheck koro");
+            }
 
         }
         function calculateExpectedCGPA() {
@@ -738,19 +734,20 @@ input:focus {
             const finalCGPA = (adjustedCreditPoints + totalNewPoints) / (currentCreditCounted + totalNewCredits) || 0;
             const cgpaDisplay = document.getElementById('expectedCGPA');
             cgpaDisplay.textContent = `Expected CGPA: ${finalCGPA.toFixed(2)}`;
-            cgpaDisplay.className = 'cgpa-circle';
             
+            if (finalCGPA > 4) {
+                    alert("oi mama na pls 😂, calculation recheck koro");
+                cgpaDisplay.textContent = `Expected CGPA: ${finalCGPA.toFixed(2)}`;
+            } else {
+                cgpaDisplay.textContent = `Expected CGPA: ${finalCGPA.toFixed(2)}`;
+            }   
+
+            cgpaDisplay.className = 'cgpa-circle';
             if (finalCGPA > 2.99) cgpaDisplay.classList.add('cgpa-green');
             else if (finalCGPA >= 2.5) cgpaDisplay.classList.add('cgpa-yellow');
             else cgpaDisplay.classList.add('cgpa-red');
-
-            if (finalCGPA > 4) {
-                 const messageDiv = document.createElement('div');
-                 messageDiv.textContent = "oi mama na pls 😂, recheck your calculation";
-                 messageDiv.style.marginTop = '10px';
-                 messageDiv.style.color = '#FF5252';
-                 cgpaDisplay.parentNode.insertBefore(messageDiv, cgpaDisplay.nextSibling);
-    }
+            
+            
         }
         function togglePreviousGrade(checkbox) {
             const previousGradeDiv = checkbox.closest('.course-box').querySelector('.previousGrade');
