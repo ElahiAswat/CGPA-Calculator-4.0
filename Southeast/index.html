@@ -538,13 +538,17 @@ button:hover {
             const creditcompl = parseFloat(document.getElementById('creditcompl').value);
             const cgpa = parseFloat(document.getElementById('ccgpa').value);
             const creditCounted = cgpa*creditcompl;
-            const cgpaDisplay = document.getElementById('currentCGPA');
+            const cgpaDisplay = document.getElementById('currentCGPA');  
 
             cgpaDisplay.textContent = `CGPA: ${cgpa.toFixed(2)}`;
             cgpaDisplay.className = 'cgpa-circle';
             if (cgpa > 2.99) cgpaDisplay.classList.add('cgpa-green');
             else if (cgpa >= 2.5) cgpaDisplay.classList.add('cgpa-yellow');
             else cgpaDisplay.classList.add('cgpa-red');
+            
+            if (cgpa > 4) {
+                alert("oi mama na pls 😂, calculation recheck koro");
+            }
         }
         function calculateExpectedCGPA() {
             const currentcreditcompl = parseFloat(document.getElementById('creditcompl').value);
@@ -588,11 +592,20 @@ button:hover {
             const finalCGPA = (adjustedcreditcompl + totalNewPoints) / (currentcreditcompl + totalNewCredits) || 0;
             const cgpaDisplay = document.getElementById('expectedCGPA');
             cgpaDisplay.textContent = `Expected CGPA: ${finalCGPA.toFixed(2)}`;
-            cgpaDisplay.className = 'cgpa-circle';
             
+            
+            if (finalCGPA > 4) {
+                    alert("oi mama na pls 😂, calculation recheck koro");
+                cgpaDisplay.textContent = `Expected CGPA: ${finalCGPA.toFixed(2)}`;
+            } else {
+                cgpaDisplay.textContent = `Expected CGPA: ${finalCGPA.toFixed(2)}`;
+            }   
+     
+            cgpaDisplay.className = 'cgpa-circle';
             if (finalCGPA > 2.99) cgpaDisplay.classList.add('cgpa-green');
             else if (finalCGPA >= 2.5) cgpaDisplay.classList.add('cgpa-yellow');
             else cgpaDisplay.classList.add('cgpa-red');
+
         }
         function togglePreviousGrade(checkbox) {
             const previousGradeDiv = checkbox.closest('.course-box').querySelector('.previousGrade');
@@ -687,4 +700,3 @@ window.onclick = function(event) {
     </script>
 </body>
 </html>
-
