@@ -3,7 +3,7 @@
 <html lang="en">
 <head>
     <meta name="description" content="North South University CGPA Calculator - Calculate your current and expected CGPA easily. Free tool for NSU students to track academic performance.">
-    <meta name="keywords" content="NSU CGPA calculator, North South University, CGPA calculation, RDS, NSU RDS, RDS2, RDS3, GPA calculator, NSU grades, Bangladesh university calculator, First Private University in Bangladesh, CGPA 4, Bashundhara, Dhaka">
+    <meta name="keywords" content="NSU CGPA calculator, North South University, CGPA calculation, GPA calculator, NSU grades, Bangladesh university calculator, First Private University in Bangladesh, CGPA 4, Bashundhara, Dhaka">
     <meta name="author" content="Aswat">
     <meta name="robots" content="index, follow">
     <meta property="og:title" content="NSU CGPA Calculator">
@@ -684,6 +684,16 @@ input:focus {
             if (cgpa > 2.99) cgpaDisplay.classList.add('cgpa-green');
             else if (cgpa >= 2.5) cgpaDisplay.classList.add('cgpa-yellow');
             else cgpaDisplay.classList.add('cgpa-red');
+            
+            
+            if (cgpa > 4) {
+                const messageDiv = document.createElement('div');
+                messageDiv.textContent = "oi mama na pls 😂,recheck your calculation";
+                messageDiv.style.marginTop = '10px';
+                messageDiv.style.color = '#FF5252';
+                cgpaDisplay.parentNode.insertBefore(messageDiv, cgpaDisplay.nextSibling);
+    }
+
         }
         function calculateExpectedCGPA() {
             const currentCreditCounted = parseFloat(document.getElementById('creditCounted').value);
@@ -733,6 +743,14 @@ input:focus {
             if (finalCGPA > 2.99) cgpaDisplay.classList.add('cgpa-green');
             else if (finalCGPA >= 2.5) cgpaDisplay.classList.add('cgpa-yellow');
             else cgpaDisplay.classList.add('cgpa-red');
+
+            if (finalCGPA > 4) {
+                 const messageDiv = document.createElement('div');
+                 messageDiv.textContent = "oi mama na pls 😂, recheck your calculation";
+                 messageDiv.style.marginTop = '10px';
+                 messageDiv.style.color = '#FF5252';
+                 cgpaDisplay.parentNode.insertBefore(messageDiv, cgpaDisplay.nextSibling);
+    }
         }
         function togglePreviousGrade(checkbox) {
             const previousGradeDiv = checkbox.closest('.course-box').querySelector('.previousGrade');
