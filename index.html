@@ -2,20 +2,26 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="North South University CGPA Calculator - Calculate your current and expected CGPA easily. Free tool for NSU students to track academic performance.">
     <meta name="keywords" content="NSU CGPA calculator, North South University, CGPA calculation, GPA calculator, NSU grades, Bangladesh university calculator, First Private University in Bangladesh, CGPA 4, Bashundhara, Dhaka">
     <meta name="author" content="Aswat">
     <meta name="robots" content="index, follow">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="NSU CGPA Calculator">
+    <meta name="twitter:description" content="Free CGPA calculator for North South University students">
+    <meta name="twitter:image" content="logo.png">
+
+    <!-- Open Graph Metadata -->
     <meta property="og:title" content="NSU CGPA Calculator">
-    <meta property="og:description" content="Calculate your North South University CGPA instantly with our free calculator tool">
-    <meta property="og:description1" content="Calculate your North South University CGPA instantly with our free calculator tool,easily witout any hassle. Aswat.">
+    <meta property="og:description" content="Calculate your North South University CGPA instantly with our free calculator tool, easily without any hassle.">
     <meta property="og:image" content="logo.png">
-    <meta property="og:url" content="Northsouth.edu">
-    <meta property="og:url1" content="elahiaswat.github.io/CGPA-Calculator-4.0">
+    <meta property="og:url" content="https://northsouth.edu">
+
+    <!-- Canonical Link -->
     <link rel="canonical" href="https://northsouth.edu">
 
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CGPA Calculator</title>
     <style>
         * {
@@ -429,20 +435,32 @@ body {
         }
 
         .tutorial-section {
-             margin: 20px 0;
-        }   
+             margin: 15px 0;
+        }    
 
-        .tutorial-video {
-            width: 100%;
-            aspect-ratio: 16/9;
-            margin: 20px 0;
-        }
+    .tutorial-video {
+    width: 100%;
+    max-width: 1500px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: auto;
+}
+
+
 
         .tutorial-image {
             max-width: 100%;
             height: auto;
             margin: 20px 0;
         }
+ 
+        .tutorial-image-small {
+            max-width: 100%;
+            height: 185px;
+            margin: 20px 0;
+        }
+
         .image-modal {
             display: none;
             position: fixed;
@@ -586,6 +604,7 @@ input:focus {
     text-align: center;
 }
 
+
     </style>
 </head>
 <body>
@@ -604,16 +623,24 @@ input:focus {
                 <h2>NSU Grading Policy</h2>
                 <img src="nsupolicy.png" alt="Open Image" class="tutorial-image">
                 <img src="nsupolicy1.png" alt="Open Image" class="tutorial-image">
+                <img src="nsupolicy2.png" alt="Open Image" class="tutorial-image-small">
             </div>
         </div>
-<div class="tutorial-modal" id="tutorialModal">
+<div class="tutorial-modal" id="tutorialModal"> 
     <div class="modal-content">
         <span class="close-btn" onclick="closeTutorial()">&times;</span>
         <h2>How to Calculate Your CGPA</h2>
-        
+        <div class="tutorial-video">
+            <iframe 
+                src="https://www.youtube.com/embed/24atKKXgmcM" 
+                title="How to Calculate Your CGPA"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                allowfullscreen>
+            </iframe>
+        </div>
         <div class="tutorial-section">
             <h3>Step 1: Current CGPA Calculation</h3>
-            <p>Go to RDS, then click on Degree->Academic Progress-> scroll to the bottom and copy and paste your credit points and credit counted in the input field. If you want to check mannually without adding any previous history set 0 and press the calculate current cgpa button and add course in expected CGPA section.</p>
+            <p>Go to RDS, then click on Degree->Academic Progress-> scroll to the bottom and copy and paste your credit points and credit counted in the input field. If you want to check mannually without adding any previous history or you are fresher set 0 and press the calculate current cgpa button and add course in expected CGPA section.</p>
             <img src="tutorial-image1.jpg" alt="Tutorial Step 1" class="tutorial-image">
             <img src="timage.jpg" alt="Tutorial Step 1" class="tutorial-image">
             <img src="image1.jpg" alt="Tutorial Step 1" class="tutorial-image">
@@ -655,7 +682,19 @@ input:focus {
 
     <div class="footer">© 2024 Developed by Aswat</div>
 
+    <script type="application/ld+json">
+        {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "NSU CGPA Calculator",
+        "description": "Calculate your North South University CGPA instantly",
+        "url": "https://https://elahiaswat.github.io/CGPA-Calculator-4.0/",
+        "applicationCategory": "Education",
+        "operatingSystem": "All"
+        }
+        </script>
     <script>
+
         function openImage() {
         document.getElementById('imageModal').style.display = 'block';
         document.body.style.overflow = 'hidden'; // Prevent background scrolling
@@ -676,7 +715,8 @@ input:focus {
         function calculateCurrentCGPA() {
             const creditCounted = parseFloat(document.getElementById('creditCounted').value);
             const creditPoints = parseFloat(document.getElementById('creditPoints').value);
-            const cgpa = creditPoints / creditCounted || 0;
+            const lcgpa = creditPoints / creditCounted || 0;
+            const cgpa= Math.round(lcgpa * 100) / 100;
             const cgpaDisplay = document.getElementById('currentCGPA');
 
             cgpaDisplay.textContent = `CGPA: ${cgpa.toFixed(2)}`;
@@ -686,7 +726,7 @@ input:focus {
             else cgpaDisplay.classList.add('cgpa-red');
             
             
-            if (cgpa > 4) {
+            if (cgpa > 4.00) {
                 alert("oi mama na pls 😂, calculation recheck koro");
             }
 
@@ -713,14 +753,16 @@ input:focus {
 
                 if (isRetake) {
                     const prevGrade = course.querySelector('.prevGradeSelect').value;
+                    const prevGradePoints = parseFloat(prevGrade);
                     
                     
                     if (prevGrade === 'I' || prevGrade === 'W') {
                         totalNewCredits += credit;
                         totalNewPoints += credit * gradePoints;
+                    } else if (prevGradePoints > gradePoints) {
+                        return;                    
                     } else {
                         
-                        const prevGradePoints = parseFloat(prevGrade);
                         adjustedCreditPoints -= (credit * prevGradePoints);
                         adjustedCreditPoints += (credit * gradePoints);
                     }
@@ -731,11 +773,12 @@ input:focus {
                 }
             });
 
-            const finalCGPA = (adjustedCreditPoints + totalNewPoints) / (currentCreditCounted + totalNewCredits) || 0;
+            const longCGPA = (adjustedCreditPoints + totalNewPoints) / (currentCreditCounted + totalNewCredits) || 0;
+            const finalCGPA= Math.round(longCGPA * 100) / 100;
             const cgpaDisplay = document.getElementById('expectedCGPA');
             cgpaDisplay.textContent = `Expected CGPA: ${finalCGPA.toFixed(2)}`;
             
-            if (finalCGPA > 4) {
+            if (finalCGPA > 4.00) {
                     alert("oi mama na pls 😂, calculation recheck koro");
                 cgpaDisplay.textContent = `Expected CGPA: ${finalCGPA.toFixed(2)}`;
             } else {
@@ -832,7 +875,11 @@ input:focus {
 function closeTutorial() {
     document.getElementById('tutorialModal').style.display = 'none';
     document.body.style.overflow = 'auto';
+    const videoIframe = document.querySelector('.tutorial-video iframe');
+    const videoSrc = videoIframe.src;
+    videoIframe.src = videoSrc;
 }
+
 
 window.onclick = function(event) {
     const modal = document.getElementById('tutorialModal');
