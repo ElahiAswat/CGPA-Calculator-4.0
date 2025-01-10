@@ -589,7 +589,8 @@ button:hover {
                 }
             });
 
-            const finalCGPA = (adjustedcreditcompl + totalNewPoints) / (currentcreditcompl + totalNewCredits) || 0;
+            const longCGPA = (adjustedcreditcompl + totalNewPoints) / (currentcreditcompl + totalNewCredits) || 0;
+            const finalCGPA= Math.round(longCGPA * 100) / 100;
             const cgpaDisplay = document.getElementById('expectedCGPA');
             cgpaDisplay.textContent = `Expected CGPA: ${finalCGPA.toFixed(2)}`;
             
